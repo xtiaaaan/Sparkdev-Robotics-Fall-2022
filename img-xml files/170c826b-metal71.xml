@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<annotation>
+<folder>images</folder>
+<filename>170c826b-metal71.jpg</filename>
+<source>
+<database>MyDatabase</database>
+<annotation>COCO2017</annotation>
+<image>flickr</image>
+<flickrid>NULL</flickrid>
+<annotator>3</annotator>
+</source>
+<owner>
+<flickrid>NULL</flickrid>
+<name>Label Studio</name>
+</owner>
+<size>
+<width>512</width>
+<height>384</height>
+<depth>3</depth>
+</size>
+<segmented>0</segmented>
+<object>
+<name>metal</name>
+<pose>Unspecified</pose>
+<truncated>0</truncated>
+<difficult>0</difficult>
+<bndbox>
+<xmin>138</xmin>
+<ymin>27</ymin>
+<xmax>511</xmax>
+<ymax>383</ymax>
+</bndbox>
+</object>
+</annotation>
