@@ -72,8 +72,14 @@ def main():
         ret, frame = cap.read()
         if not ret:
             break
-        cv2_im = frame
+        frame = imutils.resize(frame, width=500)
         orig = frame.copy()
+    
+        # prepare the frame for object detection by converting (1) it
+        # from BGR to RGB channel ordering and then (2) from a NumPy
+        # array to PIL image format
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frame = Image.fromarray(frame)
 
         cv2_im_rgb = cv2.cvtColor(cv2_im, cv2.COLOR_BGR2RGB)
         cv2_im_rgb = cv2.resize(cv2_im_rgb, inference_size)
@@ -133,7 +139,7 @@ def main():
             cv2.line(orig, (centerX, centerY), (250, 370), (0, 0, 255), 1)
             cv2.putText(orig, str(angle), (260, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
-        cv2.imshow('frame', cv2_im)
+        cv2.imshow('frame', orig)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
