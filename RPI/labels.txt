@@ -1,5 +1,5 @@
 0  cardboard
 1  glass
-2  metal
-3  paper
+2  paper
+3  metal
 4  plastic
