@@ -91,7 +91,7 @@ def main():
         # loop over the results
         for r in objs:
           # extract the bounding box and box and predicted class label
-          box = r.bbox.flatten().astype("int")
+          box = r.bbox.flatten()
           (startX, startY, endX, endY) = box
           label = labels[r.label_id]
           
