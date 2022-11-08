@@ -81,11 +81,11 @@ def main():
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         frame = Image.fromarray(frame)
 
-        cv2_im_rgb = cv2.cvtColor(cv2_im, cv2.COLOR_BGR2RGB)
+        cv2_im_rgb = cv2.cvtColor(orig, cv2.COLOR_BGR2RGB)
         cv2_im_rgb = cv2.resize(cv2_im_rgb, inference_size)
         run_inference(interpreter, cv2_im_rgb.tobytes())
         objs = get_objects(interpreter, args.threshold)[:args.top_k]
-        cv2_im = append_objs_to_img(cv2_im, inference_size, objs, labels)
+        orig = append_objs_to_img(orig, inference_size, objs, labels)
         
         cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
         cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
@@ -146,8 +146,8 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
 
-def append_objs_to_img(cv2_im, inference_size, objs, labels):
-    height, width, channels = cv2_im.shape
+def append_objs_to_img(orig, inference_size, objs, labels):
+    height, width, channels = orig.shape
     scale_x, scale_y = width / inference_size[0], height / inference_size[1]
     for obj in objs:
         bbox = obj.bbox.scale(scale_x, scale_y)
@@ -157,10 +157,10 @@ def append_objs_to_img(cv2_im, inference_size, objs, labels):
         percent = int(100 * obj.score)
         label = '{}% {}'.format(percent, labels.get(obj.id, obj.id))
 
-        cv2_im = cv2.rectangle(cv2_im, (x0, y0), (x1, y1), (0, 255, 0), 2)
-        cv2_im = cv2.putText(cv2_im, label, (x0, y0+30),
+        orig = cv2.rectangle(orig, (x0, y0), (x1, y1), (0, 255, 0), 2)
+        orig = cv2.putText(orig, label, (x0, y0+30),
                              cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 0, 0), 2)
-    return cv2_im
+    return orig
 
 if __name__ == '__main__':
     main()
