@@ -65,6 +65,7 @@ def main():
         if not ret:
             break
         cv2_im = frame
+        orig = frame.copy()
 
         cv2_im_rgb = cv2.cvtColor(cv2_im, cv2.COLOR_BGR2RGB)
         cv2_im_rgb = cv2.resize(cv2_im_rgb, inference_size)
