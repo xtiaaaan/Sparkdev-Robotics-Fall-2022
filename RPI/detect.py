@@ -91,8 +91,11 @@ def main():
         # loop over the results
         for r in objs:
           # extract the bounding box and box and predicted class label
-          box = r.bbox.flatten()
-          (startX, startY, endX, endY) = int(box)
+          box = r.bbox
+          startX = int(r.bbox.xmin)
+          startY = int(r.bbox.ymin)
+          endX = int(r.bbox.xmax)
+          endY = int(r.bbox.ymax)
           label = labels[r.label_id]
           
           smallY = 500
