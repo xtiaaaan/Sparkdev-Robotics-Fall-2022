@@ -34,6 +34,7 @@ from imutils.video import VideoStream
 from PIL import Image
 import imutils
 import time
+import numpy as np
 import math
 import warnings
 
