@@ -96,7 +96,7 @@ def main():
           startY = int(r.bbox.ymin)
           endX = int(r.bbox.xmax)
           endY = int(r.bbox.ymax)
-          label = labels[r.label_id]
+          label = labels[r.id]
           
           smallY = 500
           midY = 400
