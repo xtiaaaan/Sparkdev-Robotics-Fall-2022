@@ -71,6 +71,55 @@ def main():
         run_inference(interpreter, cv2_im_rgb.tobytes())
         objs = get_objects(interpreter, args.threshold)[:args.top_k]
         cv2_im = append_objs_to_img(cv2_im, inference_size, objs, labels)
+        
+        cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
+        cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
+        cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
+        cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
+        cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
+        cv2.circle(orig, (275, 0), 5, (0, 0, 255), 3, 8, 0)
+    
+        # loop over the results
+        for r in objs:
+          # extract the bounding box and box and predicted class label
+          box = r.bounding_box.flatten().astype("int")
+          (startX, startY, endX, endY) = box
+          label = labels[r.label_id]
+          
+          smallY = 500
+          midY = 400
+          largeY = 300
+          
+          smallRadius = 310
+          midRadius = 375
+          largeRadius = 450
+          
+          if True:
+            centerX = ((endX - startX) // 2) + startX
+            centerY = ((endY - startY) // 2) + startY
+            
+            cv2.circle(orig, (250, 25), 10, (0, 0, 255), -1)
+            myDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
+            print(myDistance);
+            
+            # draw the bounding box and label on the image
+            angle = int(math.atan((centerY - 370)/(centerX - 250))*180/math.pi)
+            
+            if angle == 90: 
+              angle = 0
+              
+            if angle < 0:
+              angle = angle + 180
+              
+            cv2.rectangle(orig, (startX, startY), (endX, endY), (0, 255, 0))
+            y = startY - 15 if startY - 15 > 15 else startY + 15
+            text = "{}: {:.2f}%".format(label, r.score * 100)
+            cv2.putText(orig, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)      
+            
+            cv2.circle(orig, (centerX, centerY), 5, (0, 0, 255), -1)
+            cv2.circle(orig, (250, 370), 5, (0, 0, 255), -1)
+            cv2.line(orig, (centerX, centerY), (250, 370), (0, 0, 255), 1)
+            cv2.putText(orig, str(angle), (260, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
         cv2.imshow('frame', cv2_im)
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -97,3 +146,4 @@ def append_objs_to_img(cv2_im, inference_size, objs, labels):
 
 if __name__ == '__main__':
     main()
+  
