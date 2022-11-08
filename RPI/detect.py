@@ -92,7 +92,7 @@ def main():
         for r in objs:
           # extract the bounding box and box and predicted class label
           box = r.bbox.flatten()
-          (startX, startY, endX, endY) = box
+          (startX, startY, endX, endY) = int(box)
           label = labels[r.label_id]
           
           smallY = 500
