@@ -29,6 +29,13 @@ python3 detect.py \
 import argparse
 import cv2
 import os
+from imutils.video import FPS
+from imutils.video import VideoStream
+from PIL import Image
+import imutils
+import time
+import math
+import warnings
 
 from pycoral.adapters.common import input_size
 from pycoral.adapters.detect import get_objects
