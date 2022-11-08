@@ -87,9 +87,9 @@ def main():
         objs = get_objects(interpreter, args.threshold)[:args.top_k]
         orig = append_objs_to_img(orig, inference_size, objs, labels)
         
-        cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
-        cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
-        cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
+        # cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
+        # cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
+        # cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
         cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
         cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
         cv2.circle(orig, (275, 0), 5, (0, 0, 255), 3, 8, 0)
