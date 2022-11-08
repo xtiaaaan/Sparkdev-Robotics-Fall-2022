@@ -32,6 +32,7 @@ import os
 from imutils.video import FPS
 from imutils.video import VideoStream
 from PIL import Image
+import imutils
 import time
 import math
 import warnings
