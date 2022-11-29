@@ -105,8 +105,8 @@ while True:
 	
 	# make predictions on the input frame
 	start = time.time()
-	results = model.DetectWithImage(frame, threshold=args["confidence"],
-		keep_aspect_ratio=True, relative_coord=False)
+	run_inference(interpreter, cv2_im_rgb.tobytes())
+	objs = get_objects(interpreter, args.threshold)[:args.top_k]
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
