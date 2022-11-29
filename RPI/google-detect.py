@@ -37,7 +37,7 @@ from pycoral.utils.edgetpu import make_interpreter
 from pycoral.utils.edgetpu import run_inference
 
 def main():
-    default_model_dir = '../all_models'
+    default_model_dir = ''
     default_model = 'detect_edgetpu.tflite'
     default_labels = 'labels.txt'
     parser = argparse.ArgumentParser()

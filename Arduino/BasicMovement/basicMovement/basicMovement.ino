@@ -12,22 +12,12 @@ Servo base;
 
 void setup() {
   // attaching each servo object to a pin number
-  //old pins wrong
-  //shoulder.attach(4);
-  //elbow.attach(7);
-  //wrist1.attach(9);
-  //wrist2.attach(6);
-  //hand.attach(5);
-  //base.attach(3);
-  
-  //new pins
-  shoulder.attach(11);
-  elbow.attach(10);
+  shoulder.attach(4);
+  elbow.attach(7);
   wrist1.attach(9);
   wrist2.attach(6);
   hand.attach(5);
   base.attach(3);
-
 
   // setting servos to pickup object
   sweep(hand, 90, 160, 30);
