@@ -123,7 +123,7 @@ while True:
 	height, width, channels = orig.shape
 	scale_x, scale_y = width / inference_size[0], height / inference_size[1]
 	# loop over the results
-	for obj in objs:
+	for r in objs:
 		# extract the bounding box and box and predicted class label
 		bbox = obj.bbox.scale(scale_x, scale_y)
 		x0, y0 = int(bbox.xmin), int(bbox.ymin)
