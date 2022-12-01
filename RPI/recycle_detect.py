@@ -108,7 +108,7 @@ while True:
 	# make predictions on the input frame
 	start = time.time()
 	run_inference(interpreter, frame.tobytes())
-	objs = get_objects(interpreter, args.threshold)[:args.top_k]
+	objs = get_objects(interpreter, args.threshold)
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
