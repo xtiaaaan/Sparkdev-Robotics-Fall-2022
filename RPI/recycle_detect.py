@@ -121,7 +121,7 @@ while True:
 	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
 	
 	# loop over the results
-	for r in results:
+	for r in objs:
 		# extract the bounding box and box and predicted class label
 		box = r.bounding_box.flatten().astype("int")
 		(startX, startY, endX, endY) = box
