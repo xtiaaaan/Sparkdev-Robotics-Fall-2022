@@ -105,7 +105,7 @@ while True:
 	# from BGR to RGB channel ordering and then (2) from a NumPy
 	# array to PIL image format
 	frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-	frame = Image.fromarray(frame)
+	frame = cv2.resize(frame, inference_size)
 	
 	# make predictions on the input frame
 	start = time.time()
@@ -114,7 +114,6 @@ while True:
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
-	cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
 	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
 	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)
 	
