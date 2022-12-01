@@ -105,6 +105,9 @@ while True:
 	
 	# make predictions on the input frame
 	start = time.time()
+	interpreter = make_interpreter(args.model)
+	interpreter.allocate_tensors()
+	inference_size = input_size(interpreter)
 	run_inference(interpreter, cv2_im_rgb.tobytes())
 	objs = get_objects(interpreter, args.threshold)[:args.top_k]
 	end = time.time()
