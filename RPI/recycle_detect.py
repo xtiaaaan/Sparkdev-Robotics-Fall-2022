@@ -89,6 +89,10 @@ vs = VideoStream(src=0).start()
 time.sleep(5)
 fps = FPS().start()
 
+interpreter = make_interpreter(args.model)
+interpreter.allocate_tensors()
+inference_size = input_size(interpreter)
+
 # loop over the frames from the video stream
 while True:
 	# grab the frame from the threaded video stream and resize it
@@ -105,10 +109,7 @@ while True:
 	
 	# make predictions on the input frame
 	start = time.time()
-	interpreter = make_interpreter(args.model)
-	interpreter.allocate_tensors()
-	inference_size = input_size(interpreter)
-	run_inference(interpreter, cv2_im_rgb.tobytes())
+	run_inference(interpreter, frame.tobytes())
 	objs = get_objects(interpreter, args.threshold)[:args.top_k]
 	end = time.time()
 	
