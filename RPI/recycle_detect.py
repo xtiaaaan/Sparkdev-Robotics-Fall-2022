@@ -65,7 +65,7 @@ parser.add_argument('--model', help='.tflite model path', default=os.path.join(d
 parser.add_argument('--labels', help='label file path', default=os.path.join(default_model_dir, default_labels))
 parser.add_argument('--top_k', type=int, default=3, help='number of categories with highest score to display')
 parser.add_argument('--camera_idx', type=int, help='Index of which video source to use. ', default = 0)
-parser.add_argument('--confidence', type=float, default=0.3, help='minimum probability to filter weak detections')
+parser.add_argument('--threshold', type=float, default=0.7, help='classifier score threshold')
 args = parser.parse_args()
 
 # initialize the labels dictionary
@@ -110,7 +110,7 @@ while True:
 	# make predictions on the input frame
 	start = time.time()
 	run_inference(interpreter, frame.tobytes())
-	objs = get_objects(interpreter, args.confidence)[:args.top_k]
+	objs = get_objects(interpreter, args.threshold)[:args.top_k]
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
