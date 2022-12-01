@@ -186,10 +186,10 @@ while True:
 		cv2.putText(orig, str(angle), (260, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 		
 		# create name and bounding box around object
-		cv2.rectangle(orig, (startX, startY), (endX, endY), (0, 255, 0))
-		y = startY - 15 if startY - 15 > 15 else startY + 15
+		cv2.rectangle(orig, (x0, y0), (x1, y1), (0, 255, 0))
+		y = y0 - 15 if y0 - 15 > 15 else y0 + 15
 		text = "{}: {:.2f}%".format(label, r.score * 100)
-		cv2.putText(orig, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)      
+		cv2.putText(orig, text, (x0, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)      
 		
 		# if the arm is done moving
 		if done == 1:	
