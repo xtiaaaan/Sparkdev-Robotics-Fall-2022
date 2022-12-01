@@ -119,6 +119,97 @@ while True:
 	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
 	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
 	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
+	
+	height, width, channels = orig.shape
+	scale_x, scale_y = width / inference_size[0], height / inference_size[1]
+	# loop over the results
+	for obj in objs:
+		# extract the bounding box and box and predicted class label
+		bbox = obj.bbox.scale(scale_x, scale_y)
+		x0, y0 = int(bbox.xmin), int(bbox.ymin)
+		x1, y1 = int(bbox.xmax), int(bbox.ymax)
+		percent = int(100 * obj.score)
+		label = '{}% {}'.format(percent, labels.get(obj.id, obj.id))
+		
+		# center coordinates of object detected
+		centerX = ((x1 - x0) // 2) + x1
+		centerY = ((y1 - y0) // 2) + y1
+		
+		# calculate the distance from arm to object
+		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
+		
+		# if object is close to the smallest circle
+		if calcDistance <= 302:
+			inputDistance = ' 1'
+			
+		# if object is between smallest and middle circle
+		if calcDistance >= 303 and calcDistance <= 327:
+			inputDistance = ' 2'
+			
+		# if object is close to middle circle
+		if calcDistance >= 328 and calcDistance <= 352:
+			inputDistance = ' 3'
+			
+		# if object is between middle and biggest circle
+		if calcDistance >= 353 and calcDistance <= 377:
+			inputDistance = ' 4'
+			
+		# if obejct is close to the biggest circle
+		if calcDistance >= 378:
+			inputDistance = ' 5'
+			
+		# calculate angle of object to arm
+		angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
+		
+		# calculated angle gives angles between (-90,90) NOT (0,180)
+		# if statements used to convert the (-90,90) angles to (0,180)
+		if angle > 0:
+			angle = abs(angle - 180)
+			
+		if angle < 0:
+			angle = -angle
+			
+		if angle == 90: 
+			angle = 0
+			
+		# convert (0,180) angle to a string to send to Arduino
+		inputAngle = ' ' + str(angle)
+		
+		# create circle of center of object
+		cv2.circle(orig, (centerX, centerY), 5, (0, 0, 255), -1)
+		
+		# create circle of where the arm is 
+		cv2.circle(orig, (275, 370), 5, (0, 0, 255), -1)
+		
+		# create line connecting the arm and object location with the angle calculated too
+		cv2.line(orig, (centerX, centerY), (275, 370), (0, 0, 255), 1)
+		cv2.putText(orig, str(angle), (260, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
+		
+		# create name and bounding box around object
+		cv2.rectangle(orig, (startX, startY), (endX, endY), (0, 255, 0))
+		y = startY - 15 if startY - 15 > 15 else startY + 15
+		text = "{}: {:.2f}%".format(label, r.score * 100)
+		cv2.putText(orig, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)      
+		
+		# if the arm is done moving
+		if done == 1:	
+			# increase each count variable when it detects that object	
+			# NOTE: I commented out the first two if statements for demo purposes
+			# uncomment them for your own purposes
+			#if label == "cardboard":
+				#cardboardCount += 1
+			
+			#if label == "glass":
+				#glassCount += 1
+			
+			if label == "metal":
+				metalCount += 1
+				
+			if label == "paper":
+				paperCount += 1
+				
+			if label == "plastic":
+				plasticCount += 1
 				
 	# if the Arduino sends data to the RPI
 	if s1.inWaiting()>0:
@@ -209,103 +300,12 @@ while True:
 	
 	# update the FPS counter
 	fps.update()
-
-	# stop the timer and display FPS information
-	fps.stop()
-	print("[INFO] elapse time: {:.2f}".format(fps.elapsed()))
-	print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-			
-	# do a bit of cleanup
-	cv2.destroyAllWindows()
-	vs.stop()
 	
-def appen_objs_to_img(orig, inference_size, objs, labels):
-	height, width, channels = orig.shape
-	scale_x, scale_y = width / inference_size[0], height / inference_size[1]
-	for obj in objs:
-		# extract the bounding box and box and predicted class label
-		bbox = obj.bbox.scale(scale_x, scale_y)
-		x0, y0 = int(bbox.xmin), int(bbox.ymin)
-		x1, y1 = int(bbox.xmax), int(bbox.ymax)
-		percent = int(100 * obj.score)
-		label = '{}% {}'.format(percent, labels.get(obj.id, obj.id))
-		
-		# center coordinates of object detected
-		centerX = ((x1 - x0) // 2) + x1
-		centerY = ((y1 - y0) // 2) + y1
-		
-		# calculate the distance from arm to object
-		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
-		
-		# if object is close to the smallest circle
-		if calcDistance <= 302:
-			inputDistance = ' 1'
-		
-		# if object is between smallest and middle circle
-		if calcDistance >= 303 and calcDistance <= 327:
-			inputDistance = ' 2'
-		
-		# if object is close to middle circle
-		if calcDistance >= 328 and calcDistance <= 352:
-			inputDistance = ' 3'
-		
-		# if object is between middle and biggest circle
-		if calcDistance >= 353 and calcDistance <= 377:
-			inputDistance = ' 4'
-		
-		# if obejct is close to the biggest circle
-		if calcDistance >= 378:
-			inputDistance = ' 5'
-		
-		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
-		
-		# calculated angle gives angles between (-90,90) NOT (0,180)
-		# if statements used to convert the (-90,90) angles to (0,180)
-		if angle > 0:
-			angle = abs(angle - 180)
-		
-		if angle < 0:
-			angle = -angle
-		
-		if angle == 90: 
-			angle = 0
-		
-		# convert (0,180) angle to a string to send to Arduino
-		inputAngle = ' ' + str(angle)
-		
-		# create circle of center of object
-		cv2.circle(orig, (centerX, centerY), 5, (0, 0, 255), -1)
-		
-		# create circle of where the arm is 
-		cv2.circle(orig, (275, 370), 5, (0, 0, 255), -1)
-		
-		# create line connecting the arm and object location with the angle calculated too
-		cv2.line(orig, (centerX, centerY), (275, 370), (0, 0, 255), 1)
-		cv2.putText(orig, str(angle), (260, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
-		
-		# create name and bounding box around object
-		cv2.rectangle(orig, (startX, startY), (endX, endY), (0, 255, 0))
-		y = startY - 15 if startY - 15 > 15 else startY + 15
-		text = "{}: {:.2f}%".format(label, r.score * 100)
-		cv2.putText(orig, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)      
-		
-		# if the arm is done moving
-		if done == 1:	
-			# increase each count variable when it detects that object	
-			# NOTE: I commented out the first two if statements for demo purposes
-			# uncomment them for your own purposes
-			#if label == "cardboard":
-				#cardboardCount += 1
-		
-			#if label == "glass":
-				#glassCount += 1
-		
-			if label == "metal":
-				metalCount += 1
-		
-			if label == "paper":
-				paperCount += 1
-		
-			if label == "plastic":
-				plasticCount += 1
+# stop the timer and display FPS information
+fps.stop()
+print("[INFO] elapse time: {:.2f}".format(fps.elapsed()))
+print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+
+# do a bit of cleanup
+cv2.destroyAllWindows()
+vs.stop()
