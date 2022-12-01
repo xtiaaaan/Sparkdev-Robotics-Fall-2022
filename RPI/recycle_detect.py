@@ -121,15 +121,17 @@ while True:
 	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
 	
 	# loop over the results
-	for r in objs:
+	for obj in objs:
 		# extract the bounding box and box and predicted class label
-		box = r.bounding_box.flatten().astype("int")
-		(startX, startY, endX, endY) = box
-		label = labels[r.label_id]
+		bbox = obj.bbox.scale(scale_x, scale_y)
+		x0, y0 = int(bbox.xmin), int(bbox.ymin)
+		x1, y1 = int(bbox.xmax), int(bbox.ymax)
+		percent = int(100 * obj.score)
+		label = '{}% {}'.format(percent, labels.get(obj.id, obj.id))
 		
 		# center coordinates of object detected
-		centerX = ((endX - startX) // 2) + startX
-		centerY = ((endY - startY) // 2) + startY
+		centerX = ((x1 - x0) // 2) + x1
+		centerY = ((y1 - y0) // 2) + y1
 		
 		# calculate the distance from arm to object
 		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
