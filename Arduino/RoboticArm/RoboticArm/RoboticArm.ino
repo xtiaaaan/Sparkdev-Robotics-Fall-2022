@@ -2,7 +2,7 @@
    This code is used to control the robotic arm based on the inputs from the
    Raspberry Pi. The Raspberry Pi will detect the recycle and will tell the Arduino
    to move the robotic arm in the location the object is detected at. Based on
-   the material, the robotic arm will place the object in the correct loaction.
+   the material, the robotic arm will place the object in the correct location.
 */
 
 // add Servo library
@@ -14,7 +14,7 @@ int distance = 0;
 int material = 0;
 int angle = 90;
 
-// create variables to store servo posistions
+// create variables to store servo postions
 int shoulderPos = 90;
 int elbowPos = 90;
 int wrist1Pos = 90;
