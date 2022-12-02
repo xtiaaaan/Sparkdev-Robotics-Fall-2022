@@ -68,13 +68,7 @@ args = parser.parse_args()
 
 # initialize the labels dictionary
 print("[INFO] parsing class labels...")
-labels = {}
-
-# loop over the class labels file
-for row in open(args.labels):
-	# unpack the row and update the labels dictionary
-	(classID, label) = row.strip().split(maxsplit=1)
-	labels[int(classID)] = label.strip()
+labels = read_label_file(args.labels)
 
 # loop over the class labels file
 #	for row in open(args["labels"]):
@@ -215,6 +209,7 @@ while True:
 				
 	# if the Arduino sends data to the RPI
 	print("Serial status: ", s1.inWaiting())
+	print("Done: ", done)
 	if s1.inWaiting()>0:
 		print("Sending command to Arduino")
 		# take the input and print it
