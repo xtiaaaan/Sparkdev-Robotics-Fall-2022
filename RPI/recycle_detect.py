@@ -157,7 +157,7 @@ while True:
 			inputDistance = ' 5'
 			
 		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 250)/(centerX - 200))*180/math.pi)
+		angle = int(math.atan((centerY - 180)/(centerX - 275))*180/math.pi)
 		
 		# calculated angle gives angles between (-90,90) NOT (0,180)
 		# if statements used to convert the (-90,90) angles to (0,180)
