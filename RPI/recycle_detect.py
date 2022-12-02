@@ -115,8 +115,8 @@ while True:
 	cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
 	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
 	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
-	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
-	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
+#	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
+#	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
 	
 	height, width, channels = orig.shape
 	scale_x, scale_y = width / inference_size[0], height / inference_size[1]
