@@ -127,7 +127,7 @@ while True:
 		x0, y0 = int(bbox.xmin), int(bbox.ymin)
 		x1, y1 = int(bbox.xmax), int(bbox.ymax)
 		percent = int(100 * r.score)
-		label = '{}% {}'.format(percent, labels.get(r.id, r.id))
+		label = '{} {}%'.format(labels.get(r.id, r.id), percent)
 		
 		# center coordinates of object detected
 		centerX = ((x1 - x0) // 2) + x1
@@ -209,7 +209,7 @@ while True:
 				
 	# if the Arduino sends data to the RPI
 	print("Serial status: ", s1.inWaiting())
-	print("Count: {}\n{}\n{}\n".format(metalCount, paperCount, plasticCount))
+	print("Count: \n{}\n{}\n{}\n".format(metalCount, paperCount, plasticCount))
 	print("Done: ", done)
 	if s1.inWaiting()>0:
 		print("Sending command to Arduino")
