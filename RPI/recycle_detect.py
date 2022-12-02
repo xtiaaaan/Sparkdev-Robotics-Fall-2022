@@ -172,7 +172,6 @@ while True:
 			
 		# convert (0,180) angle to a string to send to Arduino
 		inputAngle = ' ' + str(angle)
-		print('Sent angle: {0}', angle)
 		
 		# create circle of center of object
 		cv2.circle(orig, (centerX, centerY), 5, (0, 0, 255), -1)
@@ -209,7 +208,9 @@ while True:
 				plasticCount += 1
 				
 	# if the Arduino sends data to the RPI
+	print("Serial status: ", s1.inWaiting)
 	if s1.inWaiting()>0:
+		print("Sending command to Arduino")
 		# take the input and print it
 		inputValue = s1.readline()
 		print(inputValue.decode())
