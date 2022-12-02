@@ -112,11 +112,11 @@ while True:
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
-#	cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
-#	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
-#	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
-#	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
-#	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
+	cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
+	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
+	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
+	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
+	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
 	
 	height, width, channels = orig.shape
 	scale_x, scale_y = width / inference_size[0], height / inference_size[1]
@@ -157,7 +157,7 @@ while True:
 			inputDistance = ' 5'
 			
 		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 120)/(centerX - 275))*180/math.pi)
+		angle = int(math.atan((centerY - 250)/(centerX - 188))*180/math.pi)
 		
 		# calculated angle gives angles between (-90,90) NOT (0,180)
 		# if statements used to convert the (-90,90) angles to (0,180)
