@@ -63,7 +63,7 @@ default_labels = 'labels.txt'
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', help='.tflite model path', default=os.path.join(default_model_dir,default_model))
 parser.add_argument('--labels', help='label file path', default=os.path.join(default_model_dir, default_labels))
-parser.add_argument('--threshold', type=float, default=0.5, help='classifier score threshold')
+parser.add_argument('--threshold', type=float, default=0.3, help='classifier score threshold')
 args = parser.parse_args()
 
 # initialize the labels dictionary
