@@ -209,6 +209,7 @@ while True:
 				
 	# if the Arduino sends data to the RPI
 	print("Serial status: ", s1.inWaiting())
+	print("Count: {}\n{}\n{}\n".format(metalCount, paperCount, plasticCount))
 	print("Done: ", done)
 	if s1.inWaiting()>0:
 		print("Sending command to Arduino")
