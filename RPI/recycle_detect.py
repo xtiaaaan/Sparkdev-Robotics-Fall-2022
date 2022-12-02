@@ -127,7 +127,7 @@ while True:
 		x0, y0 = int(bbox.xmin), int(bbox.ymin)
 		x1, y1 = int(bbox.xmax), int(bbox.ymax)
 		percent = int(100 * r.score)
-		label = '{} {}%'.format(labels.get(r.id, r.id), percent)
+		label = labels.get(r.id, r.id)
 		
 		# center coordinates of object detected
 		centerX = ((x1 - x0) // 2) + x1
@@ -185,7 +185,8 @@ while True:
 		
 		# create name and bounding box around object
 		cv2.rectangle(orig, (x0, y0), (x1, y1), (0, 255, 0), 2)
-		cv2.putText(orig, label, (x0, y0+30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 0, 0), 2)      
+		text = "{}: {}%".format(label, percent)
+		cv2.putText(orig, text, (x0, y0+30), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 0, 0), 2)      
 		
 		# if the arm is done moving
 		if done == 1:	
