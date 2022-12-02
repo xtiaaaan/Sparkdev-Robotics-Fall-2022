@@ -130,8 +130,8 @@ while True:
 		label = labels.get(r.id, r.id)
 		
 		# center coordinates of object detected
-		centerX = ((x1 - x0) // 2) + x1
-		centerY = ((y1 - y0) // 2) + y1
+		centerX = ((x1 - x0) // 2) + x0
+		centerY = ((y1 - y0) // 2) + y0
 		
 		# calculate the distance from arm to object
 		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
@@ -157,7 +157,7 @@ while True:
 			inputDistance = ' 5'
 			
 		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 250)/(centerX - 188))*180/math.pi)
+		angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
 		
 		# calculated angle gives angles between (-90,90) NOT (0,180)
 		# if statements used to convert the (-90,90) angles to (0,180)
