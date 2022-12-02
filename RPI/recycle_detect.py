@@ -208,7 +208,7 @@ while True:
 				plasticCount += 1
 				
 	# if the Arduino sends data to the RPI
-	print("Serial status: ", s1.inWaiting)
+	print("Serial status: ", s1.inWaiting())
 	if s1.inWaiting()>0:
 		print("Sending command to Arduino")
 		# take the input and print it
