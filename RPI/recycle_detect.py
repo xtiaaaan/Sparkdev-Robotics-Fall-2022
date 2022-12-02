@@ -71,10 +71,16 @@ print("[INFO] parsing class labels...")
 labels = {}
 
 # loop over the class labels file
-for row in open(args["labels"]):
+for row in open(args.labels):
 	# unpack the row and update the labels dictionary
 	(classID, label) = row.strip().split(maxsplit=1)
 	labels[int(classID)] = label.strip()
+
+# loop over the class labels file
+#	for row in open(args["labels"]):
+#	# unpack the row and update the labels dictionary
+#	(classID, label) = row.strip().split(maxsplit=1)
+#	labels[int(classID)] = label.strip()
 	
 # load the Google Coral object detection model
 print("[INFO] loading Coral model...")
