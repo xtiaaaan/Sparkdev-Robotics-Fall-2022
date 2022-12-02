@@ -112,8 +112,11 @@ while True:
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
-	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
-	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)
+#	cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
+#	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
+#	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
+#	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
+#	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
 	
 	height, width, channels = orig.shape
 	scale_x, scale_y = width / inference_size[0], height / inference_size[1]
@@ -169,6 +172,7 @@ while True:
 			
 		# convert (0,180) angle to a string to send to Arduino
 		inputAngle = ' ' + str(angle)
+		print('Sent angle: {0}', angle)
 		
 		# create circle of center of object
 		cv2.circle(orig, (centerX, centerY), 5, (0, 0, 255), -1)
