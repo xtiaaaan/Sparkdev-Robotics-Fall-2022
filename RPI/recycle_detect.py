@@ -220,7 +220,7 @@ while True:
 		# if the input is in the comp_list
 		if inputValue.decode() in comp_list:
 			# cardboard has been detected for at least 20 frames
-			if cardboardCount >= 20 and done == 1 and angle != 0:
+			if cardboardCount >= 15 and done == 1 and angle != 0:
 				print("Cardboard frames:", cardboardCount)
 				print(inputDistance);
 				print(inputAngle);
@@ -232,7 +232,7 @@ while True:
 				done = 0
 				
 			# glass has been detected for at least 20 frames
-			if glassCount >= 20 and done == 1 and angle != 0:
+			if glassCount >= 15 and done == 1 and angle != 0:
 				print("Glass frames:", glassCount)
 				print(inputDistance);
 				print(inputAngle);
@@ -244,7 +244,7 @@ while True:
 				done = 0
 				
 			# metal has been detected for at least 20 frames
-			if metalCount >= 20 and done == 1 and angle != 0:
+			if metalCount >= 15 and done == 1 and angle != 0:
 				print("Metal frames:", metalCount)
 				print(inputDistance);
 				print(inputAngle);
@@ -256,7 +256,7 @@ while True:
 				done = 0
 				
 			# paper has been detected for at least 20 frames
-			if paperCount >= 20 and done == 1 and angle != 0:
+			if paperCount >= 15 and done == 1 and angle != 0:
 				print("Paper frames:", paperCount)
 				print(inputDistance);
 				print(inputAngle);
@@ -268,7 +268,7 @@ while True:
 				done = 0
 				
 			# plastic has been detected for at least 20 frames
-			if plasticCount >= 20 and done == 1 and angle != 0:
+			if plasticCount >= 15 and done == 1 and angle != 0:
 				print("Plastic frames:", plasticCount)
 				print(inputDistance);
 				print(inputAngle);
