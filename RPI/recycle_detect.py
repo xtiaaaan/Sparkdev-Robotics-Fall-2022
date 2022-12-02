@@ -196,8 +196,8 @@ while True:
 			#if label == "cardboard":
 				#cardboardCount += 1
 			
-			#if label == "glass":
-				#glassCount += 1
+			if label == "glass":
+				glassCount += 1
 			
 			if label == "metal":
 				metalCount += 1
