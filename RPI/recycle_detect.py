@@ -96,7 +96,7 @@ while True:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 500 pixels
 	frame = vs.read()
-	frame = imutils.resize(frame, width=500)
+	frame = imutils.resize(frame, width=550)
 	orig = frame.copy()
 	
 	# prepare the frame for object detection by converting (1) it
@@ -157,7 +157,7 @@ while True:
 			inputDistance = ' 5'
 			
 		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 445)/(centerX - 250))*180/math.pi)
+		angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
 		
 		# calculated angle gives angles between (-90,90) NOT (0,180)
 		# if statements used to convert the (-90,90) angles to (0,180)
