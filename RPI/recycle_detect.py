@@ -132,7 +132,7 @@ while True:
 		# center coordinates of object detected
 		centerX = ((x1 - x0) // 2) + x0
 		centerY = ((y1 - y0) // 2) + y0
-		
+		print(x0,y0,x1,y1,centerX,centerY)
 		# calculate the distance from arm to object
 		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
 		
