@@ -155,9 +155,12 @@ while True:
 		# if obejct is close to the biggest circle
 		if calcDistance >= 378:
 			inputDistance = ' 5'
-			
-		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
+		
+		if centerX == 275:
+			angle = 0
+		else:
+			# calculate angle of object to arm
+			angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
 		
 		# calculated angle gives angles between (-90,90) NOT (0,180)
 		# if statements used to convert the (-90,90) angles to (0,180)
