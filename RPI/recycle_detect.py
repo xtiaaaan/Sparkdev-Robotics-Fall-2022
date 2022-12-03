@@ -157,7 +157,7 @@ while True:
 			inputDistance = ' 5'
 		
 		if centerX == 250:
-			angle = 0
+			angle = 1
 		else:
 			# calculate angle of object to arm
 			angle = int(math.atan((centerY - 445)/(centerX - 250))*180/math.pi)
