@@ -96,7 +96,7 @@ while True:
 	# grab the frame from the threaded video stream and resize it
 	# to have a maximum width of 500 pixels
 	frame = vs.read()
-	frame = imutils.resize(frame, width=500)
+	frame = imutils.resize(frame, width=550)
 	orig = frame.copy()
 	
 	# prepare the frame for object detection by converting (1) it
@@ -112,9 +112,9 @@ while True:
 	end = time.time()
 	
     # make three circles indicating the arm's range of motion
-	cv2.circle(orig, (250, 445), 390, (0, 0, 255), 3, 8, 0)
-	cv2.circle(orig, (250, 445), 365, (0, 0, 255), 3, 8, 0)
-	cv2.circle(orig, (250, 445), 340, (0, 0, 255), 3, 8, 0)	
+	cv2.circle(orig, (275, 445), 390, (0, 0, 255), 3, 8, 0)
+	cv2.circle(orig, (275, 445), 365, (0, 0, 255), 3, 8, 0)
+	cv2.circle(orig, (275, 445), 340, (0, 0, 255), 3, 8, 0)	
 #	cv2.circle(orig, (275, 445), 315, (0, 0, 255), 3, 8, 0)
 #	cv2.circle(orig, (275, 445), 290, (0, 0, 255), 3, 8, 0)
 	
@@ -134,7 +134,7 @@ while True:
 		centerY = ((y1 - y0) // 2) + y0
 		print(x0,y0,x1,y1,centerX,centerY)
 		# calculate the distance from arm to object
-		calcDistance = int(math.sqrt(((centerX - 250)**2)+((centerY - 445)**2))) - 100
+		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2))) 
 		
 		# if object is close to the smallest circle
 		if calcDistance <= 302:
@@ -156,9 +156,11 @@ while True:
 		if calcDistance >= 378:
 			inputDistance = ' 5'
 		
-		
-		# calculate angle of object to arm
-		angle = int(math.atan((centerY - 445)/(centerX - 250))*180/math.pi)
+		if centerX == 275:
+			angle = 0
+		else:
+			# calculate angle of object to arm
+			angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
 		
 		# calculated angle gives angles between (-90,90) NOT (0,180)
 		# if statements used to convert the (-90,90) angles to (0,180)
@@ -178,10 +180,10 @@ while True:
 		cv2.circle(orig, (centerX, centerY), 5, (0, 0, 255), -1)
 		
 		# create circle of where the arm is 
-		cv2.circle(orig, (250, 370), 5, (0, 0, 255), -1)
+		cv2.circle(orig, (275, 370), 5, (0, 0, 255), -1)
 		
 		# create line connecting the arm and object location with the angle calculated too
-		cv2.line(orig, (centerX, centerY), (250, 370), (0, 0, 255), 1)
+		cv2.line(orig, (centerX, centerY), (275, 370), (0, 0, 255), 1)
 		cv2.putText(orig, str(angle), (260, 360), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 		
 		# create name and bounding box around object
@@ -220,16 +222,16 @@ while True:
 		# if the input is in the comp_list
 		if inputValue.decode() in comp_list:
 			# cardboard has been detected for at least 20 frames
-			if cardboardCount >= 15 and done == 1 and angle != 0:
-				print("Cardboard frames:", cardboardCount)
-				print(inputDistance);
-				print(inputAngle);
-				s1.write(bytes('1', 'utf-8'))
-				s1.write(bytes(' 1', 'utf-8'))
-				s1.write(bytes(inputDistance, 'utf-8'))
-				s1.write(bytes(inputAngle, 'utf-8'))
-				stop = 1
-				done = 0
+#			if cardboardCount >= 15 and done == 1 and angle != 0:
+#				print("Cardboard frames:", cardboardCount)
+#				print(inputDistance);
+#				print(inputAngle);
+#				s1.write(bytes('1', 'utf-8'))
+#				s1.write(bytes(' 1', 'utf-8'))
+#				s1.write(bytes(inputDistance, 'utf-8'))
+#				s1.write(bytes(inputAngle, 'utf-8'))
+#				stop = 1
+#				done = 0
 				
 			# glass has been detected for at least 20 frames
 			if glassCount >= 15 and done == 1 and angle != 0:
