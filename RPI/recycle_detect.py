@@ -134,7 +134,7 @@ while True:
 		centerY = ((y1 - y0) // 2) + y0
 		print(x0,y0,x1,y1,centerX,centerY)
 		# calculate the distance from arm to object
-		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2))) 
+		calcDistance = int(math.sqrt(((centerX - 275)**2)+((centerY - 445)**2)))
 		
 		# if object is close to the smallest circle
 		if calcDistance <= 302:
@@ -155,8 +155,7 @@ while True:
 		# if obejct is close to the biggest circle
 		if calcDistance >= 378:
 			inputDistance = ' 5'
-		
-		
+			
 		# calculate angle of object to arm
 		angle = int(math.atan((centerY - 445)/(centerX - 275))*180/math.pi)
 		
@@ -220,16 +219,16 @@ while True:
 		# if the input is in the comp_list
 		if inputValue.decode() in comp_list:
 			# cardboard has been detected for at least 20 frames
-#			if cardboardCount >= 15 and done == 1 and angle != 0:
-#				print("Cardboard frames:", cardboardCount)
-#				print(inputDistance);
-#				print(inputAngle);
-#				s1.write(bytes('1', 'utf-8'))
-#				s1.write(bytes(' 1', 'utf-8'))
-#				s1.write(bytes(inputDistance, 'utf-8'))
-#				s1.write(bytes(inputAngle, 'utf-8'))
-#				stop = 1
-#				done = 0
+			if cardboardCount >= 15 and done == 1 and angle != 0:
+				print("Cardboard frames:", cardboardCount)
+				print(inputDistance);
+				print(inputAngle);
+				s1.write(bytes('1', 'utf-8'))
+				s1.write(bytes(' 1', 'utf-8'))
+				s1.write(bytes(inputDistance, 'utf-8'))
+				s1.write(bytes(inputAngle, 'utf-8'))
+				stop = 1
+				done = 0
 				
 			# glass has been detected for at least 20 frames
 			if glassCount >= 15 and done == 1 and angle != 0:
