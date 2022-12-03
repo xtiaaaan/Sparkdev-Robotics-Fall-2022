@@ -222,16 +222,16 @@ while True:
 		# if the input is in the comp_list
 		if inputValue.decode() in comp_list:
 			# cardboard has been detected for at least 20 frames
-			if cardboardCount >= 15 and done == 1 and angle != 0:
-				print("Cardboard frames:", cardboardCount)
-				print(inputDistance);
-				print(inputAngle);
-				s1.write(bytes('1', 'utf-8'))
-				s1.write(bytes(' 1', 'utf-8'))
-				s1.write(bytes(inputDistance, 'utf-8'))
-				s1.write(bytes(inputAngle, 'utf-8'))
-				stop = 1
-				done = 0
+#			if cardboardCount >= 15 and done == 1 and angle != 0:
+#				print("Cardboard frames:", cardboardCount)
+#				print(inputDistance);
+#				print(inputAngle);
+#				s1.write(bytes('1', 'utf-8'))
+#				s1.write(bytes(' 1', 'utf-8'))
+#				s1.write(bytes(inputDistance, 'utf-8'))
+#				s1.write(bytes(inputAngle, 'utf-8'))
+#				stop = 1
+#				done = 0
 				
 			# glass has been detected for at least 20 frames
 			if glassCount >= 15 and done == 1 and angle != 0:
